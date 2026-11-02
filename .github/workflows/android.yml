@@ -48,10 +48,14 @@ jobs:
       run: ./gradlew assembleDebug
       working-directory: ./android
 
+    - name: Find all APK files in project
+      run: find . -name "*.apk"
+
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
         name: school-app-debug-apk
         path: |
-          **/*.apk
           android/app/build/outputs/apk/**/*.apk
+          **/build/outputs/apk/**/*.apk
+          **/*.apk
