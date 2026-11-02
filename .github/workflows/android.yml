@@ -52,4 +52,6 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: school-app-debug-apk
-        path: android/app/build/outputs/apk/**/*.apk
+        path: |
+          **/*.apk
+          android/app/build/outputs/apk/**/*.apk
