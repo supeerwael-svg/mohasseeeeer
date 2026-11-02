@@ -80,5 +80,5 @@ jobs:
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: school-app-debug-apk
+        name: school-app-apk-final  # اسم جديد غير مكرر
         path: android/app/build/outputs/apk/**/*.apk
