@@ -41,9 +41,4 @@ jobs:
         with:
           name: app-release
           path: |
-            android/app/build/outputs/apk/release/*.apk
-            android/app/build/outputs/apk/release/app-release.apk Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: school-app-debug-apk
-        path: android/app/build/outputs/apk/debug/app-debug.apk
+            android/**/build/outputs/apk/release/*.apk
