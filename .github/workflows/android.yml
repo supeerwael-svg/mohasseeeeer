@@ -67,11 +67,10 @@ jobs:
     - name: Build Debug APK with Gradle
       run: ./gradlew assembleDebug
       working-directory: ./android
-
-    - name: Upload APK Artifact
+- name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: school-app-apk-final
+        name: school-app-apk-v3  # اسم جديد كلياً غير مكرر
         path: android/app/build/outputs/apk/**/*.apk
 
     - name: Upload APK Artifact
