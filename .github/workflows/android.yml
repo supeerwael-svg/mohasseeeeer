@@ -36,28 +36,18 @@ jobs:
         npx cap add android || true
         npx cap sync android
 
-    - name: Fix Missing Manifest and Complete Launcher Icons
+    - name: Install Capacitor Assets & Generate Icons
+      run: |
+        npm install @capacitor/assets --save-dev
+        npx @capacitor-assets generate --android
+      working-directory: .
+
+    - name: Ensure AndroidManifest exists
       run: |
         mkdir -p app/src/main
-        mkdir -p app/src/main/res/mipmap-anydpi-v26
-        mkdir -p app/src/main/res/values
-        mkdir -p capacitor-cordova-android-plugins
-        touch capacitor-cordova-android-plugins/cordova.variables.gradle
-        
-        # 1. إنشاء AndroidManifest.xml إن لم يكن موجوداً
         if [ ! -f app/src/main/AndroidManifest.xml ]; then
           echo '<manifest xmlns:android="http://schemas.android.com/apk/res/android"></manifest>' > app/src/main/AndroidManifest.xml
         fi
-
-        # 2. إنشاء ملف الألوان الأساسي فقط لعدم حدوث تكرار
-        echo '<?xml version="1.0" encoding="utf-8"?><resources><color name="ic_launcher_background">#FFFFFF</color></resources>' > app/src/main/res/values/colors.xml
-
-        # 3. حذف الملف المكرر إن وجد بالخطأ
-        rm -f app/src/main/res/values/ic_launcher_background.xml
-
-        # 4. إنشاء ملفات ic_launcher المتكيفة
-        echo '<?xml version="1.0" encoding="utf-8"?><adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"><background android:color="@color/ic_launcher_background"/><foreground/></adaptive-icon>' > app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
-        echo '<?xml version="1.0" encoding="utf-8"?><adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android"><background android:color="@color/ic_launcher_background"/><foreground/></adaptive-icon>' > app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml
       working-directory: ./android
 
     - name: Grant execute permission for gradlew
@@ -71,11 +61,5 @@ jobs:
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: school-app-apk-v3
-        path: android/app/build/outputs/apk/**/*.apk
-
-    - name: Upload APK Artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: school-app-apk-final  # اسم جديد غير مكرر
+        name: school-app-final-icon-apk
         path: android/app/build/outputs/apk/**/*.apk
