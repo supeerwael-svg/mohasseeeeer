@@ -31,8 +31,10 @@ jobs:
         cache: gradle
         cache-dependency-path: android/build.gradle
 
-    - name: Sync Capacitor Android
-      run: npx cap sync android
+    - name: Add and Sync Capacitor Android
+      run: |
+        npx cap add android || true
+        npx cap sync android
 
     - name: Create missing cordova plugins directory & file
       run: |
