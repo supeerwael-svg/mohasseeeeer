@@ -1,3 +1,4 @@
+
 name: Android CI
 
 on:
@@ -39,7 +40,7 @@ jobs:
     - name: Install Capacitor Assets & Generate Icons
       run: |
         npm install @capacitor/assets --save-dev
-        npx @capacitor-assets generate --android
+        npx @capacitor/assets generate --android
       working-directory: .
 
     - name: Ensure AndroidManifest exists
@@ -61,5 +62,5 @@ jobs:
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: school-app-final-icon-apk
+        name: school-app-final-icon-apk-v2
         path: android/app/build/outputs/apk/**/*.apk
